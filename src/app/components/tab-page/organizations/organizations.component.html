@@ -1,0 +1,35 @@
+<p>Φορείς Ελληνικού Δημοσίου</p>
+<div style="height: 100vh">
+  <ag-grid-angular
+    style="width: 100%; height: 100%;"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [groupDefaultExpanded]="groupDefaultExpanded"
+    [pagination]="true"
+    [paginationPageSize]="50"
+    [rowData]="rowData$ | async"
+    [class]="themeClass"
+    (gridReady)="onGridReady($event)"
+  ></ag-grid-angular>
+</div>
+<!-- <div>
+  @for (data of rowData$ | async; track data.preferredLabel; let idx = $index) {
+    {{ idx+1 }}. {{ data.preferredLabel }}<br>
+  }
+<div> -->
+<!-- 
+<ag-grid-angular
+  class="themeClass"
+  style="height:100%;width:100%"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  [defaultColDef]="defaultColDef"
+  [pagination]="true"
+  [paginationPageSize]="50"
+  [overlayLoadingTemplate]="overlayLoadingTemplate"
+  [overlayNoRowsTemplate]="overlayNoRowsTemplate"  
+  rowSelection="multiple"
+  (gridReady)="onGridReady($event)"
+>
+</ag-grid-angular> -->

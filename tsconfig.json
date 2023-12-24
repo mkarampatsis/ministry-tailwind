@@ -7,6 +7,14 @@
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
+    "paths": {
+      "interfaces": [
+        "./dist/interfaces"
+      ],
+      "@ministry/state": ["./src/app/state"],
+      "@ministry/interfaces": ["./src/app/interfaces"],
+      "@ministry/services": ["./src/app/services"]
+    },
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,

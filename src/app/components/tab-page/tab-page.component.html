@@ -1,0 +1,50 @@
+<div class="govgr-tabs mt-6">
+  <h6 class="govgr-heading-sm govgr-tabs__title">Περιεχόμενα</h6>
+  <ul class="govgr-tabs__list" role="tablist">
+    <li class="govgr-tabs__list-item " role="presentation">
+      <a 
+        class="govgr-tabs__tab" 
+        #tabForeis
+        role="button" 
+        aria-controls="foreis" 
+        aria-selected="false" 
+        tabindex="-1"
+        (click)="toggleTab('tabForeis')">
+        Φορείς
+      </a>
+    </li>
+    <li class="govgr-tabs__list-item govgr-tabs__list-item-selected" role="presentation">
+      <a 
+        class="govgr-tabs__tab" 
+        #tabMonades 
+        role="button" 
+        aria-controls="monades" 
+        aria-selected="false" 
+        tabindex="-1"
+        (click)="toggleTab('tabMonades')">
+        Μονάδες
+      </a>
+    </li>
+    <li class="govgr-tabs__list-item" role="presentation">
+      <a 
+        class="govgr-tabs__tab" 
+        #tabAnazitisi 
+        role="button" 
+        aria-controls="anazitisi" 
+        aria-selected="false" 
+        tabindex="-1"
+        (click)="toggleTab('tabAnazitisi')">
+        Αναζήτηση
+      </a>
+    </li>
+  </ul>
+  <div #txtForeis class="govgr-tabs__panel ">
+    <app-organizations></app-organizations>
+  </div>
+  <div #txtMonades class="govgr-tabs__panel govgr-tabs__panel-visible">
+    <app-organization-units></app-organization-units>
+  </div>
+  <div #txtAnazitisi class="govgr-tabs__panel">
+    <app-search></app-search>
+  </div>
+</div>
