@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState, loadOrganizations, getOrganizations } from '@ministry/state';
+import { AppState, loadOrganizations, loadOrganizationUnits } from '@ministry/state';
 
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,10 +19,9 @@ export class AppComponent {
 
   store = inject(Store<AppState>);
 
-  // constructor() {}
-
   ngOnInit(){
     this.store.dispatch(loadOrganizations());
+    this.store.dispatch(loadOrganizationUnits());
   }
 
   // ngOnDestroy() {

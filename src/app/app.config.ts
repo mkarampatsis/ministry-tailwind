@@ -7,14 +7,14 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import { organizationReducer, getOrganizationsEffect } from '@ministry/state';
+import { organizationReducer, getOrganizationsEffect, organizationUnitsReducer, getOrganizationUnitsEffect } from '@ministry/state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
-    provideStore({ organization: organizationReducer }),
-    provideEffects([{ getOrganizationsEffect }]),
+    provideStore({ organization: organizationReducer, organization_units: organizationUnitsReducer }),
+    provideEffects([{ getOrganizationsEffect, getOrganizationUnitsEffect }]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ],
   

@@ -1,23 +1,34 @@
-import { Injectable } from '@angular/core';
-import { signal } from '@angular/core';  
+import { Injectable, signal } from '@angular/core';
+import { BackendService } from './backend.service';
+import { map, tap } from "rxjs";
+
+import { inject } from '@angular/core';
+// import { Organization } from '@ministry/interfaces';
+import { Store } from '@ngrx/store';
+import { AppState, getOrganizationUnits } from '@ministry/state';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganizationUnitsService {
+  
+  store = inject(Store<AppState>);
+  backendService = inject(BackendService);
+  ouCodes$ = signal<string[]>([]);
 
-  // ouCodes$ = new Signal();
+  organizations_units$ = this.store.select(getOrganizationUnits);
 
-  // constructor() { }
+  getOrganizationUnits() {
+    return this.backendService.getOrganizationUnits();
+  }
 
-  // // Getter for the state signal
-  // get ouCodes$(): Signal {
-  //   return this.ouCodes;
-  // }
+  // Get the signal
+  getOUCodes() {
+    return this.ouCodes$;
+  }
 
-  //   // Update the state
-  // setOUCodes(newState: any) {
-  //   // Emit the signal with the new state
-  //   this.ouCodes$.emit(newState);
-  // }
+  // Set the signal
+  setOUCodes(codes: string[]) {
+    this.ouCodes$.set(codes)
+  }
 }

@@ -100,10 +100,8 @@ export class OrganizationsComponent {
   public overlayNoRowsTemplate =
     '<span style="padding: 10px;">Loading data...</span>';
 
-  constructor(
-    private organizationService: OrganizationService
-  ){}
-
+  organizationService =  inject(OrganizationService)
+  
   onGridReady(params: GridReadyEvent<Organization>) {
     this.gridApi = params.api;
     
@@ -116,8 +114,7 @@ export class OrganizationsComponent {
   
   onSelectionChanged(event: SelectionChangedEvent) {
     const selectedData = this.gridApi.getSelectedRows();
-    console.log(selectedData);
-    // this.oService.setOUCodes(selectedData.map(x => x.code));
+    this.organizationService.setOUCodes(selectedData.map(data => data.code));
   }
 
   // isRowSelectable: IsRowSelectable = (rowNode: RowNode) => {

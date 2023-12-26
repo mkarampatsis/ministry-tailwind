@@ -1,1 +1,19 @@
-<p>organization-units works!</p>
+<p>Φορείς με μονάδες Ελληνικού Δημοσίου</p>
+
+<div style="height: 100vh">
+  <ag-grid-angular
+    style="height:100%;width:100%"
+    [class]="themeClass"
+    [rowData]="rowData$ | async"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="50"
+    [overlayLoadingTemplate]="overlayLoadingTemplate"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+    [masterDetail]="true"
+    (gridReady)="onGridReady($event)"
+    [detailCellRendererParams]="detailCellRendererParams"
+  >
+  </ag-grid-angular>
+</div>

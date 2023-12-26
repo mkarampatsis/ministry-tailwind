@@ -6,30 +6,21 @@
     [defaultColDef]="defaultColDef"
     [autoGroupColumnDef]="autoGroupColumnDef"
     [groupDefaultExpanded]="groupDefaultExpanded"
+    [overlayLoadingTemplate]="overlayLoadingTemplate"
+    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
     [pagination]="true"
     [paginationPageSize]="50"
     [rowData]="rowData$ | async"
     [class]="themeClass"
     (gridReady)="onGridReady($event)"
-  ></ag-grid-angular>
+    rowSelection="multiple"
+    (selectionChanged)="onSelectionChanged($event)"
+    
+    ></ag-grid-angular>
 </div>
+<!-- [isRowSelectable]="isRowSelectable"  -->
 <!-- <div>
   @for (data of rowData$ | async; track data.preferredLabel; let idx = $index) {
     {{ idx+1 }}. {{ data.preferredLabel }}<br>
   }
 <div> -->
-<!-- 
-<ag-grid-angular
-  class="themeClass"
-  style="height:100%;width:100%"
-  [rowData]="rowData"
-  [columnDefs]="columnDefs"
-  [defaultColDef]="defaultColDef"
-  [pagination]="true"
-  [paginationPageSize]="50"
-  [overlayLoadingTemplate]="overlayLoadingTemplate"
-  [overlayNoRowsTemplate]="overlayNoRowsTemplate"  
-  rowSelection="multiple"
-  (gridReady)="onGridReady($event)"
->
-</ag-grid-angular> -->
