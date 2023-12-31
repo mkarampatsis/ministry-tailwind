@@ -4,7 +4,7 @@ import { Organization } from '@ministry/interfaces';
 import { OrganizationService } from '@ministry/services';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GridApi, GridReadyEvent, IRowNode, SelectionChangedEvent, IsRowSelectable, RowNode, CheckboxSelectionCallbackParams } from 'ag-grid-community'
+import { ColDef, GridApi, GridReadyEvent, IRowNode, SelectionChangedEvent, IsRowSelectable } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css';
 // import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
@@ -117,8 +117,7 @@ export class OrganizationsComponent {
     this.organizationService.setOUCodes(selectedData.map(data => data.code));
   }
 
-  // isRowSelectable: IsRowSelectable = (rowNode: RowNode) => {
-  //   return rowNode.data ? rowNode.data.organization_units >=1 : true;
-  // };
-
+  isRowSelectable: IsRowSelectable = (rowNode: IRowNode) => {
+    return rowNode.data ? rowNode.data.organization_units >=1 : true;
+  }
 }

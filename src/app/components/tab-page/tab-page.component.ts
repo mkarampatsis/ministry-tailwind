@@ -1,9 +1,12 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, effect } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { OrganizationUnitsComponent } from './organization-units/organization-units.component';
 import { SearchComponent } from './search/search.component';
+
+import { OrganizationService } from '@ministry/services';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-tab-page',
@@ -21,6 +24,17 @@ export class TabPageComponent {
   @ViewChild('txtForeis') txtForeis!: ElementRef;
   @ViewChild('txtMonades') txtMonades!: ElementRef;
   @ViewChild('txtAnazitisi') txtAnazitisi!: ElementRef;
+
+  organizationService = inject(OrganizationService);
+  // codes$ = this.organizationService.ouCodes$();
+  public codes: string[] | undefined
+
+  constructor() {
+    effect(() => {
+      this.codes = this.organizationService.ouCodes$();
+      // console.log('template', this.codes)
+    });
+  }
 
   toggleTab(elementId: any) {
 

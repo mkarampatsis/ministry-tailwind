@@ -1,4 +1,4 @@
-import { OrganizationUnits } from '../organization-units';
+import { OrganizationUnits } from '../organization-units.interface';
 
 export const OrganizationUnitsInit: OrganizationUnits = {
   "id": "",

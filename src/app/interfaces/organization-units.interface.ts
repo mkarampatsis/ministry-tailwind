@@ -1,4 +1,4 @@
-import { Purpose, SubOrganizationOf, OrganizationType } from './organization';
+import { Purpose, SubOrganizationOf, OrganizationType } from './organization.interface';
 
 export interface OrganizationUnits {
   id: string;

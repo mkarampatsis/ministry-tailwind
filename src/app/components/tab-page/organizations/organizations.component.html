@@ -14,11 +14,11 @@
     [class]="themeClass"
     (gridReady)="onGridReady($event)"
     rowSelection="multiple"
+    [suppressRowClickSelection]="true"
     (selectionChanged)="onSelectionChanged($event)"
-    
-    ></ag-grid-angular>
+    [isRowSelectable]="isRowSelectable"
+  ></ag-grid-angular>
 </div>
-<!-- [isRowSelectable]="isRowSelectable"  -->
 <!-- <div>
   @for (data of rowData$ | async; track data.preferredLabel; let idx = $index) {
     {{ idx+1 }}. {{ data.preferredLabel }}<br>

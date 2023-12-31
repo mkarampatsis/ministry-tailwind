@@ -1,7 +1,10 @@
 <div class="govgr-tabs mt-6">
   <h6 class="govgr-heading-sm govgr-tabs__title">Περιεχόμενα</h6>
+  <div>
+    Codes {{ codes }}
+  </div>
   <ul class="govgr-tabs__list" role="tablist">
-    <li class="govgr-tabs__list-item " role="presentation">
+    <li class="govgr-tabs__list-item govgr-tabs__list-item-selected" role="presentation">
       <a 
         class="govgr-tabs__tab" 
         #tabForeis
@@ -13,7 +16,7 @@
         Φορείς
       </a>
     </li>
-    <li class="govgr-tabs__list-item govgr-tabs__list-item-selected" role="presentation">
+    <li class="govgr-tabs__list-item" role="presentation">
       <a 
         class="govgr-tabs__tab" 
         #tabMonades 
@@ -38,10 +41,10 @@
       </a>
     </li>
   </ul>
-  <div #txtForeis class="govgr-tabs__panel ">
+  <div #txtForeis class="govgr-tabs__panel govgr-tabs__panel-visible">
     <app-organizations></app-organizations>
   </div>
-  <div #txtMonades class="govgr-tabs__panel govgr-tabs__panel-visible">
+  <div #txtMonades class="govgr-tabs__panel">
     <app-organization-units></app-organization-units>
   </div>
   <div #txtAnazitisi class="govgr-tabs__panel">

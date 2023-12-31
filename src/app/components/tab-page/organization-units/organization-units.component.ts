@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrganizationUnits } from '@ministry/interfaces';
 import { OrganizationUnitsService } from '@ministry/services';
+import { OrganizationService } from '@ministry/services';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi, GridReadyEvent, IDetailCellRendererParams } from 'ag-grid-community'
@@ -10,7 +11,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-enterprise';
 
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-organization-units',
@@ -21,8 +22,13 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class OrganizationUnitsComponent {
   
+  public rowData$!: Observable<OrganizationUnits[]>;
+  public test$!: Observable<OrganizationUnits[]>;
+  organizationUnitsService =  inject(OrganizationUnitsService);
+  organizationService = inject(OrganizationService);
+  codes$ = this.organizationService.ouCodes$();
+  
   public themeClass: string = "ag-theme-quartz"; 
-
   private gridApi!: GridApi<OrganizationUnits>;
 
   public colDefs: ColDef[] = [
@@ -85,22 +91,36 @@ export class OrganizationUnitsComponent {
     },
   } as IDetailCellRendererParams<OrganizationUnits>;
   
-  public rowData$!: Observable<OrganizationUnits[]>;
-  organizationUnitsService =  inject(OrganizationUnitsService);
-
   public overlayLoadingTemplate =
     '<span class="ag-overlay-loading-center">Please wait while your rows are loading</span>';
   
   public overlayNoRowsTemplate =
     '<span style="padding: 10px;">Loading data...</span>'
 
-    onGridReady(params: GridReadyEvent<OrganizationUnits>) {
-      this.gridApi = params.api;
-      
-      this.rowData$ = this.organizationUnitsService.organizations_units$;
+
+  constructor() {
+    effect(() => {
+      // console.log('Movie Added:', this.organizationService.ouCodes$())
+      // this.gridApi!.setGridOption('rowData', rowDataB);
+      let ouCodes = this.organizationService.ouCodes$()
+      let test$ = this.organizationUnitsService.getOrganizationsCodeByCode(ouCodes);
+      // this.gridApi!.setGridOption('rowData', test$);
+      console.log("test> ", test$);
+      // test$.subscribe(data => console.log("test", data));
+    });
+  }
+
+  onGridReady(params: GridReadyEvent<OrganizationUnits>) {
+    this.gridApi = params.api;
+   
+    this.rowData$ = this.organizationUnitsService.organizations_units$;
+    console.log("rowdata> ",this.rowData$)
+
+    if (!this.rowData$) {
+      this.gridApi.hideOverlay();
+    } 
+  } 
   
-      if (!this.rowData$) {
-        this.gridApi.hideOverlay();
-      } 
-    }  
+  // gridApi!.setGridOption('rowData', rowDataB);
+  // codes$ = this.organizationService.ouCodes$();
 }

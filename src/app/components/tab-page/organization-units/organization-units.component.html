@@ -17,3 +17,9 @@
   >
   </ag-grid-angular>
 </div>
+<!-- [isRowSelectable]="isRowSelectable"  -->
+<div>
+  @for (data of test$ | async; track data.preferredLabel; let idx = $index) {
+    {{ idx+1 }}. {{ data.preferredLabel }}<br>
+  }
+<div>
