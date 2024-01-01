@@ -45,7 +45,9 @@ export const selectOrganizationUnitsState = (state: AppState) => state.organizat
 export const getOrganizationUnits = (state: AppState) => state.organization_units.organization_units;
 
 export const getOrganizationUnitsByCode = (codes: string[]) => 
-  createSelector(getOrganizationUnits, (allItems: OrganizationUnits[]) => {
+  createSelector(
+    getOrganizationUnits, 
+    (allItems: OrganizationUnits[]) => {
     console.log("codes",codes)
     if (allItems) {
       // console.log("allItems", allItems);
@@ -60,7 +62,7 @@ export const getOrganizationUnitsByCode = (codes: string[]) =>
     }
   })
 
-  // Organizations Effects
+// Organizations Effects
 export const getOrganizationUnitsEffect = createEffect(
   (
     actions$ = inject(Actions),
