@@ -44,23 +44,23 @@ export const organizationUnitsReducer = createReducer<OrganizationUnitsState>(
 export const selectOrganizationUnitsState = (state: AppState) => state.organization_units;
 export const getOrganizationUnits = (state: AppState) => state.organization_units.organization_units;
 
-export const getOrganizationUnitsByCode = (codes: string[]) => 
-  createSelector(
-    getOrganizationUnits, 
-    (allItems: OrganizationUnits[]) => {
-    console.log("codes",codes)
-    if (allItems) {
-      // console.log("allItems", allItems);
-      const allItemsWithSubOrganizationOf = 
-        allItems.filter(item => item.subOrganizationOf)  
-      const results = 
-        allItemsWithSubOrganizationOf.filter(item => codes.includes(item.code))
-        console.log("results",results)
-      return results
-    } else {
-      return {};
-    }
-  })
+// export const getOrganizationUnitsByCode = (codes: string[]) => 
+//   createSelector(
+//     getOrganizationUnits, 
+//     (allItems: OrganizationUnits[]) => {
+//     console.log("codes",codes)
+//     if (allItems) {
+//       // console.log("allItems", allItems);
+//       const allItemsWithSubOrganizationOf = 
+//         allItems.filter(item => item.subOrganizationOf)  
+//       const results = 
+//         allItemsWithSubOrganizationOf.filter(item => codes.includes(item.code))
+//         console.log("results",results)
+//       return results
+//     } else {
+//       return {};
+//     }
+//   })
 
 // Organizations Effects
 export const getOrganizationUnitsEffect = createEffect(

@@ -12,14 +12,15 @@
     [overlayLoadingTemplate]="overlayLoadingTemplate"
     [overlayNoRowsTemplate]="overlayNoRowsTemplate"
     [masterDetail]="true"
-    (gridReady)="onGridReady($event)"
     [detailCellRendererParams]="detailCellRendererParams"
-  >
+    [isExternalFilterPresent]="isExternalFilterPresent"
+    [doesExternalFilterPass]="doesExternalFilterPass"
+    (gridReady)="onGridReady($event)"
+    >
   </ag-grid-angular>
 </div>
-<!-- [isRowSelectable]="isRowSelectable"  -->
-<div>
+<!-- <div>
   @for (data of test$ | async; track data.preferredLabel; let idx = $index) {
     {{ idx+1 }}. {{ data.preferredLabel }}<br>
   }
-<div>
+<div> -->

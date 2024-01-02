@@ -1,8 +1,11 @@
 <div class="govgr-tabs mt-6">
   <h6 class="govgr-heading-sm govgr-tabs__title">Περιεχόμενα</h6>
-  <div>
-    Codes {{ codes }}
-  </div>
+  
+  @if (codes && codes.length>0) {
+    <div>
+      <p>Έχετε επιλέξει τους φορείς με κωδικό: {{ codes }}</p>
+    </div>
+  }
   <ul class="govgr-tabs__list" role="tablist">
     <li class="govgr-tabs__list-item govgr-tabs__list-item-selected" role="presentation">
       <a 

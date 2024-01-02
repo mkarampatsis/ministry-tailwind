@@ -5,7 +5,7 @@ import { OrganizationUnitsService } from '@ministry/services';
 import { OrganizationService } from '@ministry/services';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { ColDef, GridApi, GridReadyEvent, IDetailCellRendererParams } from 'ag-grid-community'
+import { ColDef, GridApi, GridReadyEvent, IDetailCellRendererParams, IRowNode } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css';
 // import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
@@ -20,6 +20,7 @@ import { Observable } from 'rxjs';
   templateUrl: './organization-units.component.html',
   styleUrl: './organization-units.component.css'
 })
+
 export class OrganizationUnitsComponent {
   
   public rowData$!: Observable<OrganizationUnits[]>;
@@ -28,6 +29,8 @@ export class OrganizationUnitsComponent {
   organizationService = inject(OrganizationService);
   codes$ = this.organizationService.ouCodes$();
   
+  // selectedOUCodes: string[] = [];
+
   public themeClass: string = "ag-theme-quartz"; 
   private gridApi!: GridApi<OrganizationUnits>;
 
@@ -86,6 +89,7 @@ export class OrganizationUnitsComponent {
         flex: 1,
       },
     },
+
     getDetailRowData: (params) => {
       params.successCallback(params.data.units);
     },
@@ -100,12 +104,11 @@ export class OrganizationUnitsComponent {
 
   constructor() {
     effect(() => {
-      // console.log('Movie Added:', this.organizationService.ouCodes$())
-      // this.gridApi!.setGridOption('rowData', rowDataB);
-      let ouCodes = this.organizationService.ouCodes$()
-      let test$ = this.organizationUnitsService.getOrganizationsCodeByCode(ouCodes);
+      selectedOUCodes = this.organizationService.ouCodes$()
+      this.gridApi.onFilterChanged();
+
+      // let test$ = this.organizationUnitsService.getOrganizationsCodeByCode(ouCodes);
       // this.gridApi!.setGridOption('rowData', test$);
-      console.log("test> ", test$);
       // test$.subscribe(data => console.log("test", data));
     });
   }
@@ -114,13 +117,27 @@ export class OrganizationUnitsComponent {
     this.gridApi = params.api;
    
     this.rowData$ = this.organizationUnitsService.organizations_units$;
-    console.log("rowdata> ",this.rowData$)
 
     if (!this.rowData$) {
       this.gridApi.hideOverlay();
     } 
   } 
-  
-  // gridApi!.setGridOption('rowData', rowDataB);
-  // codes$ = this.organizationService.ouCodes$();
+
+  isExternalFilterPresent(): boolean {
+    return true;
+  }
+
+  doesExternalFilterPass(node: IRowNode<OrganizationUnits>): boolean {
+    
+    if (node.data && selectedOUCodes.length > 0 ) {
+      if (selectedOUCodes.includes(node.data.code)) {
+        console.log(node.data.code, selectedOUCodes.includes(node.data.code))
+        return true;
+      }
+      return false;
+    }       
+    return true;
+  }
 }
+
+var selectedOUCodes: any

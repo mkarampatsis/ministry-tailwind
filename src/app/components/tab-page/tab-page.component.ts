@@ -26,13 +26,12 @@ export class TabPageComponent {
   @ViewChild('txtAnazitisi') txtAnazitisi!: ElementRef;
 
   organizationService = inject(OrganizationService);
-  // codes$ = this.organizationService.ouCodes$();
+
   public codes: string[] | undefined
 
   constructor() {
     effect(() => {
       this.codes = this.organizationService.ouCodes$();
-      // console.log('template', this.codes)
     });
   }
 
