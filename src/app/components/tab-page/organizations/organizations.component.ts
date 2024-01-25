@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Organization } from '@ministry/interfaces';
 import { OrganizationService } from '@ministry/services';
 
+import { UpdateCellRenderer } from '../components/update-cell-renderer.component';
+
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi, GridReadyEvent, IRowNode, SelectionChangedEvent, IsRowSelectable } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css';
@@ -15,14 +17,13 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-organizations',
   standalone: true,
-  imports: [ CommonModule, AgGridModule ],
+  imports: [ CommonModule, AgGridModule, UpdateCellRenderer ],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.css'
 })
 export class OrganizationsComponent {
 
   public themeClass: string = "ag-theme-quartz"; 
-
   private gridApi!: GridApi<Organization>;
 
   public columnDefs: ColDef[] = [
@@ -34,25 +35,23 @@ export class OrganizationsComponent {
       resizable: false,
       headerCheckboxSelection: false,
       checkboxSelection: true,
-      // cellRenderer: (params: any) => {
-      //   this.oService.getOUCode()
-      //   .subscribe(data=>{
-      //     params.node.setSelected(data.includes(params.node.data.code))
-      //   });
-      // }
     },
     { 
-    headerName:'Κωδικός', 
-    field:'code' },
+      headerName:'Κωδικός', 
+      field:'code'
+    },
     { 
       headerName:'Φορέας', 
-      field:'preferredLabel' },
+      field:'preferredLabel' 
+    },
     { 
       headerName:'Εποπτεύοντας φορέας', 
-      field:'subOrganizationOf.preferredLabel' },
+      field:'subOrganizationOf.preferredLabel'
+     },
     { 
       headerName:'Τύπος φορέα', 
-      field:'organizationType.description' },
+      field:'organizationType.description' 
+    },
     { 
       headerName:'Λειτουργία', 
       field:'purpose',  
@@ -69,15 +68,26 @@ export class OrganizationsComponent {
           } 
         } 
     },
-    { 
-      headerName:'Περιγραφή', 
-      field:'description' },
-    { 
-      headerName:'ΦΕΚ', 
-      field:'foundationFek.issue' },
+    // { 
+    //   headerName:'Περιγραφή', 
+    //   field:'description' 
+    // },
+    // { 
+    //   headerName:'ΦΕΚ', 
+    //   field:'foundationFek.issue' 
+    // },
     { 
       headerName:'Μονάδες', 
-      field:'organization_units' }
+      field:'organization_units' 
+    },
+    {
+      headerName: 'Άλλα στοιχεία',
+      field: 'value',
+      cellRenderer: UpdateCellRenderer,
+      colId: 'params',
+      editable: false,
+      minWidth: 150,
+    }
   ];
   
   public defaultColDef: ColDef = {
@@ -90,6 +100,7 @@ export class OrganizationsComponent {
 
   public rowData$!: Observable<Organization[]>;
   public groupDefaultExpanded = 1;
+  public context: any;
   public autoGroupColumnDef: ColDef = {
     minWidth: 200,
   };
@@ -102,6 +113,10 @@ export class OrganizationsComponent {
 
   organizationService =  inject(OrganizationService)
   
+  constructor() {
+    this.context = { componentParent: this };
+  }
+
   onGridReady(params: GridReadyEvent<Organization>) {
     this.gridApi = params.api;
     
@@ -119,5 +134,9 @@ export class OrganizationsComponent {
 
   isRowSelectable: IsRowSelectable = (rowNode: IRowNode) => {
     return rowNode.data ? rowNode.data.organization_units >=1 : true;
+  }
+
+  methodFromParent(cell: any) {
+    alert('Parent Component Method from ' + cell + '!');
   }
 }

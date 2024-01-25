@@ -29,6 +29,7 @@ export class OrganizationUnitsComponent {
   organizationService = inject(OrganizationService);
   codes$ = this.organizationService.ouCodes$();
   
+  rowDataClicked = {};
   // selectedOUCodes: string[] = [];
 
   public themeClass: string = "ag-theme-quartz"; 
