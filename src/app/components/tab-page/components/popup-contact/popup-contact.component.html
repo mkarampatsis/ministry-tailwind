@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h2 class="modal-title" id="modal-basic-title"><strong>Στοιχεία επικοινωνίας</strong></h2>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p><strong>Email: </strong>{{data['contactPoint']['email']}}</p>
+  <p><strong>Τηλέφωνο: </strong>{{data['contactPoint']['telephone']}}</p>
+  <p><strong>Διεύθυνση: </strong>{{data['mainAddress']['fullAddress']}}</p>
+  <p><strong>Τ.Κ: </strong>{{data['mainAddress']['postCode']}}</p>
+  <p><strong>Πόλη: </strong>{{data['mainAddress']['city']['description']}}</p>
+  <p><strong>Χώρα: </strong>{{data['mainAddress']['country']['description']}}</p>
+  <br>
+  <button (click)="passBack()" type="submit" class="govgr-btn govgr-btn-primary">Επιστροφή</button>
+</div>

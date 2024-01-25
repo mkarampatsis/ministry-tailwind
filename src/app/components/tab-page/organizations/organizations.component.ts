@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Organization } from '@ministry/interfaces';
 import { OrganizationService } from '@ministry/services';
 
-import { UpdateCellRenderer } from '../components/update-cell-renderer.component';
+import { ActionsCellRendererComponent } from '../components/actions-cell-renderer/actions-cell-renderer.component';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi, GridReadyEvent, IRowNode, SelectionChangedEvent, IsRowSelectable } from 'ag-grid-community'
@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-organizations',
   standalone: true,
-  imports: [ CommonModule, AgGridModule, UpdateCellRenderer ],
+  imports: [ CommonModule, AgGridModule, ActionsCellRendererComponent ],
   templateUrl: './organizations.component.html',
   styleUrl: './organizations.component.css'
 })
@@ -83,7 +83,7 @@ export class OrganizationsComponent {
     {
       headerName: 'Άλλα στοιχεία',
       field: 'value',
-      cellRenderer: UpdateCellRenderer,
+      cellRenderer: ActionsCellRendererComponent,
       colId: 'params',
       editable: false,
       minWidth: 150,
